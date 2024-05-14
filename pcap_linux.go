@@ -11,7 +11,6 @@ package pcap
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"sync"
 	"syscall"
@@ -516,24 +515,6 @@ func pcapFindAllDevs() (pcapDevices, error) {
 }
 
 func (p *Handle) pcapSendpacket(data []byte) error {
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
-	fmt.Println("HELLO")
 	if C.pcap_sendpacket(p.cptr, (*C.u_char)(&data[0]), (C.int)(len(data))) < 0 {
 		return p.pcapGeterr()
 	}
