@@ -23,8 +23,8 @@ import (
 )
 
 /*
-#cgo linux,amd64 CFLAGS: -I${SRCDIR}/libpcap/1.9.1/amd64/include
-#cgo linux,amd64 LDFLAGS: -L${SRCDIR}/libpcap/1.9.1/amd64/lib -lpcap
+#cgo linux,amd64 CFLAGS: -I${SRCDIR}/libpcap/1.8.1/amd64/include
+#cgo linux,amd64 LDFLAGS: -L${SRCDIR}/libpcap/1.8.1/amd64/lib -lpcap
 #cgo linux,arm64 CFLAGS: -I${SRCDIR}/libpcap/1.9.1/arm64/include
 #cgo linux,arm64 LDFLAGS: -L${SRCDIR}/libpcap/1.9.1/arm64/lib -lpcap
 #include <stdlib.h>
