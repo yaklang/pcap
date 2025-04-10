@@ -27,4 +27,4 @@ jobs:
       - name: Init Project
         run: |
           go build -x -a cmd/main.go
-          ./yak --help
+          ./main --help
