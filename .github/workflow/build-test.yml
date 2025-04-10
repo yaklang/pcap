@@ -1,11 +1,7 @@
 name: Build Test
 
 on:
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize, reopened]
-    paths:
-      - ".github/workflows/build-test.yml"
+  workflow_dispatch:
 
 jobs:
   setup:
@@ -27,4 +23,4 @@ jobs:
       - name: Init Project
         run: |
           go build -x -a cmd/main.go
-          ./yak --help
+          ./main --help
