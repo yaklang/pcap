@@ -1,11 +1,7 @@
 name: Build Test
 
 on:
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize, reopened]
-    paths:
-      - ".github/workflows/build-test.yml"
+  workflow_dispatch:
 
 jobs:
   setup:
