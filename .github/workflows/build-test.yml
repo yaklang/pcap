@@ -1,6 +1,11 @@
 name: Build Test
 
 on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+    paths:
+      - ".github/workflows/build-test.yml"
   workflow_dispatch:
 
 jobs:
@@ -19,7 +24,7 @@ jobs:
         id: go
       - name: Init Module
         run: |
-          go mod tidy && go work vendor
+          go mod tidy
       - name: Init Project
         run: |
           go build -x -a cmd/main.go
