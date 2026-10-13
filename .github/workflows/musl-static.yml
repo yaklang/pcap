@@ -1,0 +1,57 @@
+name: Verify musl static libpcap
+
+on:
+  pull_request:
+    paths:
+      - 'pcap*.go'
+      - 'scripts/**'
+      - 'libpcap/1.10.7/**'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/workflows/musl-static.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'pcap*.go'
+      - 'scripts/**'
+      - 'libpcap/1.10.7/**'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/workflows/musl-static.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  musl:
+    name: Build and run Linux ${{ matrix.arch }} musl
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-22.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Reproduce archives from locked source and compiler
+        run: scripts/build-musl-libpcap.sh "${{ matrix.arch }}" --check
+      - name: Run static packet and BPF regressions on native architecture
+        run: scripts/test-musl-pcap.sh "${{ matrix.arch }}"
+
+  default-linux:
+    name: Verify existing Linux binding
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.22.12'
+          cache: false
+      - name: Run existing offline binding tests without musl tag
+        run: go test -mod=readonly -count=1 -ldflags '-linkmode external -extldflags -static' . -run '^(TestPcapNonexistentFile|TestPcapFileRead|TestBPF|TestPCAPGoWrite|TestPCAPGoNgWrite|ExampleBPF)$'

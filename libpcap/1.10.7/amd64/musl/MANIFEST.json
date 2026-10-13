@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "library": "libpcap",
+  "version": "1.10.7",
+  "source": {
+    "url": "https://www.tcpdump.org/release/libpcap-1.10.7.tar.xz",
+    "sha256": "68fa62cffb974f4275641ce14c2e2d75739251f30e00e6a0900903b247d76a03",
+    "commit": "1926f4163e4eef978c71fde28a3f6d51fff183a8",
+    "signing_fingerprint": "1F166A5742ABB9E0249A8D30E089DEF1D9C15D0D"
+  },
+  "target": {
+    "goos": "linux",
+    "goarch": "amd64",
+    "libc": "musl",
+    "linkage": "static"
+  },
+  "build": {
+    "image_index": "golang:1.22.12-alpine3.21@sha256:1699c10032ca2582ec89a24a1312d986a3f094aed3d5c1147b19880afe40e052",
+    "image": "golang:1.22.12-alpine3.21@sha256:6d405dfc5fdf3a45df1529cf060b920041f52ce523487e0f36f02765af294a51",
+    "compiler": "gcc (Alpine 14.2.0) 14.2.0",
+    "compiler_target": "x86_64-alpine-linux-musl",
+    "cflags": "-O2 -g0 -fPIC -ffile-prefix-map=/src=libpcap-source",
+    "ldflags": "-static",
+    "configure": [
+      "--prefix=/usr/local",
+      "--disable-shared",
+      "--enable-ipv6",
+      "--enable-usb",
+      "--enable-bluetooth",
+      "--disable-remote",
+      "--disable-dbus",
+      "--disable-rdma",
+      "--disable-netmap",
+      "--without-libnl",
+      "--without-dag",
+      "--without-septel",
+      "--without-snf",
+      "--without-turbocap",
+      "--without-dpdk"
+    ],
+    "source_date_epoch": 1788628901
+  },
+  "archive": {
+    "path": "lib/libpcap.a",
+    "sha256": "6fbe00aaf79ddb53932b614bff015d6e52ba4750e7e0e5bb93d0c80f2bd29744"
+  },
+  "features": {
+    "linux_packet_socket": true,
+    "ipv6": true,
+    "usbmon": true,
+    "remote_capture": false,
+    "dbus": false,
+    "bluetooth": true,
+    "rdma": false,
+    "netmap": false,
+    "libnl": false
+  }
+}
