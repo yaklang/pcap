@@ -20,7 +20,14 @@ runtime_image="${MUSL_RUNTIME_IMAGE:-$test_image}"
   echo 'MUSL_RUNTIME_IMAGE must retain the pinned glibc 2.28 image digest' >&2; exit 1;
 }
 work="$(mktemp -d "${TMPDIR:-/tmp}/pcap-musl-test-${arch}.XXXXXX")"
-trap 'rm -rf -- "$work"' EXIT
+cleanup() {
+  # Go extracts modules into read-only directories. They are owned by the
+  # caller, but rm still needs write permission on those temporary parents.
+  # Shared MUSL_MODULE_CACHE directories live outside this disposable tree.
+  chmod -R u+w "$work"
+  rm -rf -- "$work"
+}
+trap cleanup EXIT
 mkdir -p "$work/output" "$work/modules"
 module_cache="${MUSL_MODULE_CACHE:-$work/modules}"
 toolchain="pcap-musl-toolchain:$arch"
