@@ -23,14 +23,14 @@ import (
 )
 
 /*
-#cgo linux,amd64 CFLAGS: -I${SRCDIR}/libpcap/1.8.1/amd64/include
-#cgo linux,amd64 LDFLAGS: -L${SRCDIR}/libpcap/1.8.1/amd64/lib -lpcap
-#cgo linux,arm64 CFLAGS: -I${SRCDIR}/libpcap/1.9.1/arm64/include
-#cgo linux,arm64 LDFLAGS: -L${SRCDIR}/libpcap/1.9.1/arm64/lib -lpcap
-#cgo linux,loong64 CFLAGS: -I${SRCDIR}/libpcap/1.9.1/loong64/include
-#cgo linux,loong64 LDFLAGS: -L${SRCDIR}/libpcap/1.9.1/loong64/lib -lpcap
-#cgo linux,sw64 CFLAGS: -I${SRCDIR}/libpcap/1.9.1/sw64/include
-#cgo linux,sw64 LDFLAGS: -L${SRCDIR}/libpcap/1.9.1/sw64/lib -lpcap
+#cgo linux,amd64,!musl CFLAGS: -I${SRCDIR}/libpcap/1.8.1/amd64/include
+#cgo linux,amd64,!musl LDFLAGS: -L${SRCDIR}/libpcap/1.8.1/amd64/lib -lpcap
+#cgo linux,arm64,!musl CFLAGS: -I${SRCDIR}/libpcap/1.9.1/arm64/include
+#cgo linux,arm64,!musl LDFLAGS: -L${SRCDIR}/libpcap/1.9.1/arm64/lib -lpcap
+#cgo linux,loong64,!musl CFLAGS: -I${SRCDIR}/libpcap/1.9.1/loong64/include
+#cgo linux,loong64,!musl LDFLAGS: -L${SRCDIR}/libpcap/1.9.1/loong64/lib -lpcap
+#cgo linux,sw64,!musl CFLAGS: -I${SRCDIR}/libpcap/1.9.1/sw64/include
+#cgo linux,sw64,!musl LDFLAGS: -L${SRCDIR}/libpcap/1.9.1/sw64/lib -lpcap
 #include <stdlib.h>
 #include <pcap.h>
 #include <stdint.h>
